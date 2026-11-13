@@ -81,6 +81,31 @@ Todo con **un comando**, en una notebook común, sin GPU y sin servicios externo
 
 ---
 
+## Descargar el set final (ruta exacta del release oficial)
+
+El set final se publicó como release `set-final` del repo oficial
+[`qualydata-org/desafio-qualydata`](https://github.com/qualydata-org/desafio-qualydata/releases/tag/set-final)
+(tag `set-final`, 12/11/2026 20:00). Para reproducir exactamente `entrega/`:
+
+```bash
+mkdir -p datos/final && cd datos/final
+for f in fuentes.csv publicaciones.csv.gz comentarios.csv.gz cuentas.csv.gz; do
+  curl -LO https://github.com/qualydata-org/desafio-qualydata/releases/download/set-final/$f
+done
+cd ../..
+sha256sum datos/final/*    # deben coincidir con los publicados en el release:
+# 7695e3f826c9e855a4d0b7592698b3f8af7edcfccf1cb9814cfbcc6e2f1c34c7  fuentes.csv
+# 74b02ddf5cdb0ebbafed897bb69e6ae9d980355b6ccccf3fccfc441a641d7f02  publicaciones.csv.gz
+# 99b4c5b1fc3f07fd04c3cee924a5cc5e901541b31b984162c5f04d52099e49df  comentarios.csv.gz
+# 43a325bdb0b92fd06e8632d764bc69f32216805795a069c1abbda78556cd087a  cuentas.csv.gz
+python -m src.pipeline --datos datos/final --entrega entrega
+```
+
+Los cuatro archivos locales de este repo coinciden byte a byte (SHA-256 verificado)
+con los publicados en el release. `datos/final/` no se versiona (es dato del desafío).
+
+---
+
 ## Cómo correrlo
 
 Requisitos: **Python 3.10+** y ~1 GB de disco libre (modelo + caché de embeddings).
@@ -124,7 +149,7 @@ set objetivo. Verificado corriendo sobre una copia del set de práctica sin carp
 
 ```
 entrega/                  # lo único que se commitea para el jurado
-├── comentarios.csv       # comentario_id, narrativa, postura  (200.000 filas)
+├── comentarios.csv       # comentario_id, narrativa, postura  (150.000 filas en el set final)
 ├── narrativas.csv        # narrativa, titulo, frases_clave, fecha_origen
 ├── cuentas.csv           # cuenta_id, grupo  (una fila por cuenta; vacío = genuina)
 └── costo.json            # formato exacto del desafío (8 claves)
