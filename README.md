@@ -5,6 +5,9 @@ Hackathon Argentina Space 2026 · Track Big Data / QualyData · Salta, 11-13 de 
 
 > Todos los datos del desafío son sintéticos. No hay datos personales.
 
+Video demo (36 s, slideshow de capturas del dashboard):
+<https://github.com/Fernandofarfan/inti-graph/releases/download/demo-video/INTI-GRAPH-demo.mp4>
+
 ---
 
 ## Resultado sobre el set final (viernes 13)
