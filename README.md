@@ -7,6 +7,37 @@ Hackathon Argentina Space 2026 · Track Big Data / QualyData · Salta, 11-13 de 
 
 ---
 
+## Resultado sobre el set final (viernes 13)
+
+El set final (150.000 comentarios, 10 días, 12.002 cuentas, 372 publicaciones, 8 fuentes) se
+procesó con el mismo comando y **sin verdad**:
+
+```bash
+python -m src.pipeline --datos datos/final --entrega entrega
+```
+
+| Métrica | Valor |
+|---|---|
+| Comentarios procesados | 150.000 |
+| Narrativas detectadas | 14 (12 clusters + 2 cohortes tardías) |
+| Ruido separado | 30.536 (20,4 %) |
+| Postura | 72,8 % apoya · 27,2 % rechaza sobre los 119.464 comentarios con narrativa |
+| Cuentas coordinadas | 77 en 3 operaciones (50 / 22 / 5) |
+| Tiempo de proceso (CPU, sin caché) | 194 s · 772 comentarios/s |
+| Costo de IA | USD 0,00 · 0 tokens |
+| Warehouse | DuckDB + Parquet ZSTD, 2,6 MB |
+
+`entrega/` contiene la salida de esa corrida. El puntaje automático no se puede calcular
+sobre el set final porque el release no incluye verdad; el número medible sigue siendo el
+del set de práctica (49.27/55).
+
+**Sobre `fecha_origen`:** en las narrativas base el estimador devuelve el inicio de la
+cohorte tardía (el mismo minuto para varias), porque es la primera redacción propia que se
+puede distinguir de los textos heredados de narrativas viejas. El dashboard muestra además
+el primer comentario de cada narrativa, que sí es la fecha real de aparición.
+
+---
+
 ## Resultado medido (set de práctica, evaluador oficial)
 
 `python evaluacion/puntuar.py --verdad datos/practica/verdad --entrega entrega`

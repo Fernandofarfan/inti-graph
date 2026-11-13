@@ -336,7 +336,7 @@ def origen_por_etiqueta(df: pd.DataFrame, etiquetas: np.ndarray,
     aislados previos), sino el arranque de la ola principal de la narrativa.
 
     Si el cluster contiene una cohorte tardia con peso suficiente, el onset se estima
-    solo sobre esa cohorte: es la redaccion propia de la narrativa emergente, y evita
+    solo sobre esa cohorte: es la redaccion propia de la narrativa emergente y evita
     que textos compartidos con narrativas viejas corran el origen al dia 1.
     """
     prim_c = prim.reindex(df["norm"]).fillna(0.0)
@@ -374,11 +374,13 @@ def describir_etiquetas(uniq: pd.DataFrame, etiquetas: np.ndarray,
     from sklearn.feature_extraction.text import TfidfVectorizer
 
     out = {}
+    ejemplos = uniq["ejemplo"] if "ejemplo" in uniq else uniq["norm"]
     vec = TfidfVectorizer(ngram_range=(1, 2), min_df=3, max_df=0.6, sublinear_tf=True,
                           stop_words=list(VACIAS), max_features=60000)
-    X = vec.fit_transform(uniq["norm"])
+    # se vectoriza el texto original en minusculas: conserva acentos y ñ en las frases
+    # clave, que es lo que lee el jurado ("año", no "ano").
+    X = vec.fit_transform(ejemplos.astype(str).str.lower())
     terminos = np.array(vec.get_feature_names_out())
-    ejemplos = uniq["ejemplo"] if "ejemplo" in uniq else uniq["norm"]
     for cl in pd.unique(etiquetas):
         m = etiquetas == cl
         sub = uniq.loc[m]

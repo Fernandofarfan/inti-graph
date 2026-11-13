@@ -1,10 +1,10 @@
 {
-  "comentarios_procesados": 200000,
-  "segundos": 119.5,
+  "comentarios_procesados": 150000,
+  "segundos": 193.3,
   "tokens_ia": 0,
   "usd_ia": 0.0,
   "usd_por_mil_comentarios": 0.0,
   "hardware": "notebook CPU, 8 GB RAM, sin GPU",
-  "almacenamiento": "DuckDB + Parquet ZSTD en salida/warehouse (3.7 MB); pandas/NumPy en RAM; embeddings en cache .npz por hash de texto",
-  "notas": "Sin API ni GPU: costo IA 0. 1674 comentarios/s de punta a punta, un solo comando. Pico de memoria del proceso Python: 279 MB. 12 narrativas base x 3 temas; 115 cuentas marcadas."
+  "almacenamiento": "DuckDB + Parquet ZSTD en salida/warehouse (2.6 MB); pandas/NumPy en RAM; embeddings en cache .npz por hash de texto",
+  "notas": "Sin API ni GPU: costo IA 0. 776 comentarios/s de punta a punta, un solo comando. Pico de memoria del proceso Python: 199 MB. 12 narrativas base x 3 temas; 77 cuentas marcadas."
 }
